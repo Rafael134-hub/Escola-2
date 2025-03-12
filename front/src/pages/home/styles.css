@@ -1,129 +1,135 @@
-.container_home{
-    /* background-color: rgb(222, 223, 222); */
-    width: 800px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
+.container_home {
+  background-color: rgb(250, 245, 255);
+  width: 1000px;
+  height: 600px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  border-radius: 25px;
+  padding: 20px;
 }
 
-body {
-    height: 50%;
-    display: flex;
-    justify-content: start; /* Centraliza horizontalmente */
-    align-items: first baseline; /* Centraliza verticalmente */
-    margin: 0;
-    padding: 0;
-    font-size: 45px;
+body{
+  margin-bottom: 5rem;
 
 }
 
-body {
-    width: 90%;
-    flex-direction: column;
+footer{
+  display: flex;
 }
 
-footer {
-    background-color: black;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: 150px;
-    display: flex;
-    justify-content: space-around; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    text-align: center;
-    font-size: 40px;
-    
+.campos{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.icons{
+  display: flex;
+  flex-direction: row;
 }
 
-footer h1{
-    margin: 0;
+.col1{
+  width: 25px;
 }
 
-
-header{
-    background-color: black;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 150px;
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    text-align: center;
+.col2{
+  width: 25px;
 }
 
-.lista {
-    background-color: rgb(186, 187, 186);
-    margin-top: 200px;
-    width: 90vw;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #000;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  th {
-    background-color: #333;
-    color: white;
-  }
-  
-  .edit {
-    color: blue;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .delete {
-    color: red;
-    cursor: pointer;
-  }
-  
-  .btn1{
-    width: 60px;
-    height: 60px;
-    color: #000;
-    background-color: aliceblue;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.col3{
+  width: 35px;
+}
 
-  
-  .btn2{
-    width: 60px;
-    height: 60px;
-    color: #000;
-    background-color: aliceblue;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.col4{
+  width: 130px;
+}
 
-  .pesquisar input{
-    display: flex;
-    height: 60px;
-    width: 550px;
-    font-size: 50px;
-    border-radius: 10px;
-    padding-left: 10px;
-  }
+.col5{
+  width: 200px;
+}
 
+.col6{
+  width: 200px;
+}
+
+.col7{
+  width: 150px;
+}
+
+.col8{
+  width: 25px;
+}
+
+.footer_table{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(146, 100, 231);
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.footer_table input{
+  border-style: none;
+}
+
+.btn1{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  margin-left: 10px;
+  transition:  all ease-in-out 0.1s;
+}
+.btn2{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  margin-right: 10px;
+  transition:  all ease-in-out 0.1s;
+}
+
+.btn2:hover{
+  scale: 1.125;
+}
+
+.btn1:hover{
+  scale: 1.125;
+}
+
+.id input{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  padding-left: 5px;
+}
+
+.nome input{
+  width: 300px;
+  height: 30px;
+  border-radius: 10px;
+  padding-left: 5px;
+}
+
+.lista_container{
+  position: relative;
+  translate: (0, -50%);
+}
+
+button{
+  background-color: rgb(226, 217, 245);
+}

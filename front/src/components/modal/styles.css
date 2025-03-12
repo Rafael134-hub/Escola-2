@@ -1,0 +1,66 @@
+.modal-modal{
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 80%;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-modal h2{
+    color: white;
+    font-size: 30px;
+}
+
+.container-modal{
+    background-color: rgb(110, 49, 167);
+    width: 900px;
+    height: 450px;
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 35px;
+}
+
+.body-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-modal input{
+    display: flex;
+    height: 2rem;
+    width: 32rem;
+    border-radius: 5px;
+    border-style: none;
+    padding-left: 1rem;
+}
+
+.body-modal input:not(:last-child){ 
+    margin-bottom: 1rem;
+}
+
+
+.body-modal input::placeholder{
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.footer_modal{
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#botao_envio button{
+    margin-top: 2rem;
+    transition: all ease-in-out 0.2s;
+}
+
+#botao_envio button:hover{
+    scale: 1.1;
+}
