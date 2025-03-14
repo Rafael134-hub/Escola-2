@@ -4,22 +4,21 @@ import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
 import './styles.css'
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import ModalProfessores from "../../components/modal";
+import ModalDisciplinas from "../../components/modal_disciplinas"
 
-
-export default function Home() {
+export default function Disciplinas() {
     const [dados, setDados] = useState([])
     const token = localStorage.getItem('token')
     const [seta, setSeta] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
-    const [professorSelecionado, setProfessorSelecionado] = useState(null)
+    const [disciplinaSelecionada, setDisciplinaSelecionada] = useState(null)
 
     useEffect(() => {
         if (!token) return;
         
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/professores',
+                const response = await axios.get('http://127.0.0.1:8000/api/disciplinas',
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -38,30 +37,30 @@ export default function Home() {
     const apagar = async (id) => {
         if (window.confirm("Tem certeza? ")) {
             try {
-                await axios.delete(`http://127.0.0.1:8000/api/professor/${id}`,
+                await axios.delete(`http://127.0.0.1:8000/api/disciplina/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     }
                 )
-                setDados(dados.filter((professor) => { professor.id !== id }))
+                setDados(dados.filter((disciplina) => { disciplina.id !== id }))
                 setSeta(!seta)
             } catch (error) {
                 console.error(error)
             }
         }
     }
-    const criar = async(novoProfessor)=>{
-        console.log("Novo Professor: ", novoProfessor)
+    const criar = async(novaDisciplina)=>{
+        console.log("Nova Disciplina: ", novaDisciplina)
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/professores',
+            const response = await axios.post('http://127.0.0.1:8000/api/disciplinas',
+                
                 {
-                    ni: novoProfessor.ni,
-                    nome: novoProfessor.nome,
-                    email: novoProfessor.email,
-                    tel: novoProfessor.tel,
-                    ocupacao: novoProfessor.ocupacao
+                    nome_disciplina: novaDisciplina.disciplina,
+                    codigo: novaDisciplina.codigo,
+                    carga_horaria: novaDisciplina.carga_horaria
+                   
                 },{
                     headers:{
                         Authorization: `Bearer ${token}`
@@ -69,7 +68,7 @@ export default function Home() {
                 }
             )
             console.log("Dados inseridos com sucesso!", response.data)
-            setDados([...dados, novoProfessor])
+            setDados([...dados, novaDisciplina])
             setModalOpen(false)
             setSeta(!seta)
         } catch (error) {
@@ -78,8 +77,8 @@ export default function Home() {
 
     }
 
-    const atualizar = (professor)=>{
-        setProfessorSelecionado(professor)
+    const atualizar = (disciplina)=>{
+        setDisciplinaSelecionado(disciplina)
         setModalOpen(true)
     }
 
@@ -92,34 +91,28 @@ export default function Home() {
                     <table>
                         <thead>
                             <tr className="icons">
-                                <div className="col1"></div>
-                                <div className="col2"></div>
-                                <div className="col3"><th>ID</th></div>
-                                <div className="col4"><th>NI</th></div>
-                                <div className="col5"><th>NOME</th></div>
-                                <div className="col6"><th>EMAIL</th></div>
-                                <div className="col7"><th>TELEFONE</th></div>
-                                <div className="col8"><th>OC</th></div>
+                                <div className="col_1"></div>
+                                <div className="col_2"></div>
+                                <div className="col_3"><th>DISCIPLINA</th></div>
+                                <div className="col_4"><th>CODIGO</th></div>
+                                <div className="col_5"><th>CARGA HORARIA</th></div>
                             </tr>
                         </thead>
                         <tbody> 
-                            {dados.map((professor) => (
-                                <tr key={professor.id} className="campos">
+                            {dados.map((disciplina) => (
+                                <tr key={disciplina.id} className="campos">
                                     <td className="icons">
-                                        <div className="col1">
-                                            <FaEdit className="edit" onClick={()=> atualizar(professor)} />
+                                        <div className="col_1">
+                                            <FaEdit className="edit" onClick={()=> atualizar(disciplina)} />
                                         </div>
-                                        <div className="col2">
-                                            <FaTrash className="delete" onClick={() => apagar(professor.id)} />
+                                        <div className="col_2">
+                                            <FaTrash className="delete" onClick={() => apagar(disciplina.id)} />
                                         </div>
 
                                     </td>
-                                    <div className="col3"><td>{professor.id}</td></div>
-                                    <div className="col4"><td>{professor.ni}</td></div>
-                                    <div className="col5"><td>{professor.nome}</td></div>
-                                    <div className="col6"><td>{professor.email}</td></div>
-                                    <div className="col7"><td>{professor.tel}</td></div>
-                                    <div className="col8"><td>{professor.ocupacao}</td></div>
+                                    <div className="col_3"><td>{disciplina.nome_disciplina}</td></div>
+                                    <div className="col_4"><td>{disciplina.codigo}</td></div>
+                                    <div className="col_5"><td>{disciplina.carga_horaria}</td></div>
                                 </tr>
                             ))}
                         </tbody>
@@ -128,22 +121,22 @@ export default function Home() {
 
                 <div className="footer_table">
                     <div className="btn1">
-                        <FaPlus className="adicionar" onClick={()=>{setModalOpen(true), setProfessorSelecionado(null)}}/>
+                        <FaPlus className="adicionar" onClick={()=>{setModalOpen(true), setDisciplinaSelecionada(null)}}/>
                     </div>
                     <div className="id">
                         <input placeholder="id" />
                     </div>
                     <div className="nome">
-                        <input placeholder="nome do professor" />
+                        <input placeholder="nome da disciplina" />
                     </div>
                     <div className="btn2">
                         <FaSearch className="procurar" />
                     </div>
                 </div>
-                <ModalProfessores
+                <ModalDisciplinas
                     isOpen={modalOpen}
                     onClose={()=>setModalOpen(false)}
-                    professorSelecionado={professorSelecionado}
+                    disciplinaSelecionada={disciplinaSelecionada}
                     seta = {seta}
                     setSeta = {setSeta}
                 />

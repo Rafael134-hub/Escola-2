@@ -6,6 +6,8 @@ const ModalProfessores = ({
     isOpen,
     onClose,
     professorSelecionado,
+    seta,
+    setSeta
 })=>{
     if(!isOpen) return null
 
@@ -17,33 +19,9 @@ const ModalProfessores = ({
     const [ocupacao, setOcupacao] = useState(professorSelecionado?.ocupacao ?? '')
     const token = localStorage.getItem('token')
 
-    useEffect(()=>{
-        if(professorSelecionado){
-            setId(professorSelecionado.id ?? '')
-            setNi(professorSelecionado.ni ?? '')
-            setNome(professorSelecionado.nome ?? '')
-            setEmail(professorSelecionado.email ?? '')
-            setTel(professorSelecionado.tel ?? '')
-            setOcupacao(professorSelecionado.ocupacao ?? '')
-        }else{
-            setId('')
-            setNi('')
-            setNome('')
-            setEmail('')
-            setTel('')
-            setOcupacao('')
-        }
-    }, [])
-
     const handleSubmit = (e)=>{
         e.preventDefault()
-        const novoProfessor = {ni, nome, email, tel, ocupacao}
-        if(professorSelecionado){
-            atualizar({...professorSelecionado, ...novoProfessor})
-        }else{
-            console.log("Teste novo professor: ", novoProfessor)
-            criar(novoProfessor)
-        }
+  
     }
 
 
@@ -65,6 +43,33 @@ const ModalProfessores = ({
             )
         
         console.log("Dados inseridos com sucesso")  
+        setSeta(!seta)
+        onClose(true)  
+            
+        } catch (error) {
+            
+        }
+    }
+
+    const editTeacher = async () => {
+        try {
+            const response = await axios.put(`http://127.0.0.1:8000/api/professor/${professorSelecionado.id}`,
+                {
+                    ni: ni,
+                    nome: nome,
+                    email: email,
+                    tel: tel,
+                    ocupacao: ocupacao
+                },{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+
+            )
+        
+        console.log("Dados atualizados com sucesso")  
+        setSeta(!seta)
         onClose(true)  
             
         } catch (error) {
@@ -119,7 +124,10 @@ const ModalProfessores = ({
                         </div>
 
                         <div className="footer_modal">
-                            <button id="botao_envio" type="submit" onClick={newTeacher}>Salvar</button> 
+                            <button id="botao_envio"
+                             type="submit" 
+                             onClick={professorSelecionado ? editTeacher : newTeacher}>Salvar
+                             </button> 
                         </div>
                         
                     </form>

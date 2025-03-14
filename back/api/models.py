@@ -7,3 +7,8 @@ class Professor(models.Model):
     tel = models.CharField(max_length=255)
     ocupacao = models.FloatField()
     
+class Disciplinas(models.Model):
+    nome_disciplina = models.CharField(max_length=255)
+    codigo = models.CharField(max_length=255)
+    carga_horaria = models.IntegerField()
+    

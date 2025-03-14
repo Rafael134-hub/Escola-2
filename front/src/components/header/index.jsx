@@ -1,6 +1,6 @@
 import React from "react";
 import './styles.css'
-
+import { Link } from "react-router-dom";
 export default function Header(){
     return(
         <header>
@@ -14,6 +14,7 @@ export default function Header(){
                     <span>Read</span>
                     <span>Update</span>
                     <span>Delete</span>
+                    <Link to={'/disciplinas/'}><span>Disciplinas</span></Link>
                 </div>
             </div>
         </header>
