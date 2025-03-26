@@ -54,8 +54,8 @@ const ModalDisciplinas = ({
                     nome_disciplina: nome_disciplina,
                     codigo: codigo,
                     carga_horaria: carga_horaria
-                },{
-                },{
+                },
+                {
                     headers:{
                         Authorization: `Bearer ${token}`
                     }
@@ -81,29 +81,31 @@ const ModalDisciplinas = ({
                 <h2>{disciplinaSelecionada ? `Editar - ${disciplinaSelecionada.nome_disciplina}` : "Cadastrar"}</h2>
                 <div className="body-modal">
                     <form onSubmit={handleSubmit}>
-                        <div className="caixa-1">
-                            <input
-                                className="ni-modal"
-                                value={nome_disciplina}
-                                placeholder="nome da disciplina"
-                                onChange={(e)=>setNomeDisciplina(e.target.value)}
-                            />
-                            <input
-                                className="nome-modal"
-                                value={codigo}
-                                placeholder="codigo da disciplina"
-                                onChange={(e)=>setCodigo(e.target.value)}
-                            />
-                            <input
-                                className="email-modal"
-                                value={carga_horaria}
-                                placeholder="carga horária da disciplina"
-                                onChange={(e)=>setCarga_horaria(e.target.value)}
-                            />
-                        </div>
+                        <div className="test_container">
+                            <div className="caixa-1">
+                                <input
+                                    className="ni-modal"
+                                    value={nome_disciplina}
+                                    placeholder="nome da disciplina"
+                                    onChange={(e)=>setNomeDisciplina(e.target.value)}
+                                />
+                                <input
+                                    className="nome-modal"
+                                    value={codigo}
+                                    placeholder="codigo da disciplina"
+                                    onChange={(e)=>setCodigo(e.target.value)}
+                                />
+                                <input
+                                    className="email-modal"
+                                    value={carga_horaria}
+                                    placeholder="carga horária da disciplina"
+                                    onChange={(e)=>setCarga_horaria(e.target.value)}
+                                />
+                            </div>
 
-                        <div className="caixa2">
+                            <div className="caixa2">
 
+                            </div>
                         </div>
 
                         <div className="footer_modal">

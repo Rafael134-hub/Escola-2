@@ -16,7 +16,7 @@
 .container-modal{
     background-color: rgb(110, 49, 167);
     width: 1000px;
-    height: 450px;
+    height: 500px;
     flex-direction: row;
     align-items: end;
     justify-content: space-between;
@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.body-modal input{
+.body-modal input, select{
     display: flex;
     height: 2rem;
     width: 32rem;
@@ -43,8 +43,16 @@
     margin-bottom: 1rem;
 }
 
+.body-modal select:not(:last-child){ 
+    margin-bottom: 1rem;
+}
 
 .body-modal input::placeholder{
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.body-modal select::placeholder{
     display: flex;
     margin-bottom: 1rem;
 }
@@ -56,11 +64,11 @@
     justify-content: center;
 }
 
-#botao_envio button{
-    margin-top: 2rem;
+#botao_envioh button{
+    margin-top: 0;
     transition: all ease-in-out 0.2s;
 }
 
-#botao_envio button:hover{
+#botao_envioh button:hover{
     scale: 1.1;
 }

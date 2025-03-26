@@ -4,21 +4,24 @@ import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
 import './styles.css'
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import ModalDisciplinas from "../../components/modals/subjects/index"
+import ModalCursos from "../../components/modals/courses/index"
 
-export default function Disciplinas() {
+export default function Cursos() {
     const [dados, setDados] = useState([])
     const token = localStorage.getItem('token')
     const [seta, setSeta] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
-    const [disciplinaSelecionada, setDisciplinaSelecionada] = useState(null)
+    const [cursoSelecionado, setCursoSelecionado] = useState(null)
 
     useEffect(() => {
+        console.log("Token Rafa:", token);
+        
         if (!token) return;
+        console.log("Dados", dados);
         
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/disciplinas',
+                const response = await axios.get('http://127.0.0.1:8000/api/cursos',
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -26,6 +29,8 @@ export default function Disciplinas() {
                     }
                 )
                 setDados(response.data)
+                console.log("Dados Rafa:", dados);
+                
             } catch (error) {
                 console.log(error)
             } 
@@ -37,29 +42,31 @@ export default function Disciplinas() {
     const apagar = async (id) => {
         if (window.confirm("Tem certeza? ")) {
             try {
-                await axios.delete(`http://127.0.0.1:8000/api/disciplina/${id}`,
+                await axios.delete(`http://127.0.0.1:8000/api/curso/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     }
                 )
-                setDados(dados.filter((disciplina) => { disciplina.id !== id }))
+                setDados(dados.filter((curso) => { curso.id !== id }))
                 setSeta(!seta)
             } catch (error) {
                 console.error(error)
             }
         }
     }
-    const criar = async(novaDisciplina)=>{
-        console.log("Nova Disciplina: ", novaDisciplina)
+    const criar = async(novoCurso)=>{
+        console.log("Novo Curso: ", novoCurso)
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/disciplinas',
+            const response = await axios.post('http://127.0.0.1:8000/api/cursos',
                 
                 {
-                    nome_disciplina: novaDisciplina.disciplina,
-                    codigo: novaDisciplina.codigo,
-                    carga_horaria: novaDisciplina.carga_horaria
+                    codigo: novoCurso.codigo,
+                    nome_curso: novoCurso.nome_curso,
+                    tipo: novoCurso.tipo,
+                    hora_aula: novoCurso.hora_aula,
+                    sigla: novoCurso.sigla
                    
                 },{
                     headers:{
@@ -68,7 +75,7 @@ export default function Disciplinas() {
                 }
             )
             console.log("Dados inseridos com sucesso!", response.data)
-            setDados([...dados, novaDisciplina])
+            setDados(...dados, novoCurso)
             setModalOpen(false)
             setSeta(!seta)
         } catch (error) {
@@ -77,8 +84,8 @@ export default function Disciplinas() {
 
     }
 
-    const atualizar = (disciplina)=>{
-        setDisciplinaSelecionada(disciplina)
+    const atualizar = (curso)=>{
+        setCursoSelecionado(curso)
         setModalOpen(true)
     }
 
@@ -89,30 +96,34 @@ export default function Disciplinas() {
             <div className="container_home">
                 <div className="lista">
                     <table>
-                        <thead>
+                    <thead>
                             <tr className="icons">
-                                <div className="col_1"></div>
-                                <div className="col_2"></div>
-                                <div className="col_3"><th>DISCIPLINA</th></div>
-                                <div className="col_4"><th>CODIGO</th></div>
-                                <div className="col_5"><th>CARGA HORARIA</th></div>
+                                <div className="coluna_1"></div>
+                                <div className="coluna_2"></div>
+                                <div className="coluna_3"><th>CODIGO</th></div>
+                                <div className="coluna_4"><th>NOME DO CURSO</th></div>
+                                <div className="coluna_5"><th>TIPO</th></div>
+                                <div className="coluna_6"><th>CARGA HORÁIA</th></div>
+                                <div className="coluna_7"><th>SIGLA</th></div>
                             </tr>
                         </thead>
                         <tbody> 
-                            {dados.map((disciplina) => (
-                                <tr key={disciplina.id} className="campos">
+                            {dados.map((curso) => (
+                                <tr key={curso.id} className="campos">
                                     <td className="icons">
-                                        <div className="col_1">
-                                            <FaEdit className="edit" onClick={()=> atualizar(disciplina)} />
+                                        <div className="coluna_1">
+                                            <FaEdit className="edit" onClick={()=> atualizar(curso)} />
                                         </div>
-                                        <div className="col_2">
-                                            <FaTrash className="delete" onClick={() => apagar(disciplina.id)} />
+                                        <div className="coluna_2">
+                                            <FaTrash className="delete" onClick={() => apagar(curso.id)} />
                                         </div>
 
                                     </td>
-                                    <div className="col_3"><td>{disciplina.nome_disciplina}</td></div>
-                                    <div className="col_4"><td>{disciplina.codigo}</td></div>
-                                    <div className="col_5"><td>{disciplina.carga_horaria}</td></div>
+                                    <div className="coluna_3"><td>{curso.codigo}</td></div>
+                                    <div className="coluna_4"><td>{curso.nome_curso}</td></div>
+                                    <div className="coluna_5"><td>{curso.tipo}</td></div>
+                                    <div className="coluna_6"><td>{curso.hora_aula}</td></div>
+                                    <div className="coluna_7"><td>{curso.sigla}</td></div>
                                 </tr>
                             ))}
                         </tbody>
@@ -121,22 +132,22 @@ export default function Disciplinas() {
 
                 <div className="footer_table">
                     <div className="btn1">
-                        <FaPlus className="adicionar" onClick={()=>{setModalOpen(true), setDisciplinaSelecionada(null)}}/>
+                        <FaPlus className="adicionar" onClick={()=>{setModalOpen(true), setCursoSelecionado(null)}}/>
                     </div>
                     <div className="id">
                         <input placeholder="id" />
                     </div>
                     <div className="nome">
-                        <input placeholder="nome da disciplina" />
+                        <input placeholder="nome do curso"/>
                     </div>
                     <div className="btn2">
                         <FaSearch className="procurar" />
                     </div>
                 </div>
-                <ModalDisciplinas
+                <ModalCursos
                     isOpen={modalOpen}
                     onClose={()=>setModalOpen(false)}
-                    disciplinaSelecionada={disciplinaSelecionada}
+                    cursoSelecionado = {cursoSelecionado}
                     seta = {seta}
                     setSeta = {setSeta}
                 />

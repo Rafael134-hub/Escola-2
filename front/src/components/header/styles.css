@@ -19,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50vh;
+    width: 80vh;
     height: 35px;
     font-size: 20px;
     justify-content: space-between;
@@ -28,15 +28,33 @@
     padding: 0.3rem 1rem 0.3rem 1rem;
 }
 
-.nav_area span{
+.nav_area span, #disciplina, #disciplina2, #disciplina3, #exit{
     margin-bottom: 0.29rem;
     margin-left: 1rem;
     margin-right: 1rem;
     cursor: pointer;
     transition: all ease-in-out 0.15s;
+    text-decoration: none;
+    color: white;
 }
 
 .nav_area span:hover{
+    color: rgb(84, 24, 139);
+    text-decoration: underline rgb(84, 24, 139);
+}
+
+
+#disciplina:hover{
+    color: rgb(84, 24, 139);
+    text-decoration: underline rgb(84, 24, 139);
+}
+
+#disciplina2:hover{
+    color: rgb(84, 24, 139);
+    text-decoration: underline rgb(84, 24, 139);
+}
+
+#disciplina3:hover{
     color: rgb(84, 24, 139);
     text-decoration: underline rgb(84, 24, 139);
 }

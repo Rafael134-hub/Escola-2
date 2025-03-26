@@ -4,21 +4,22 @@ import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
 import './styles.css'
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import ModalDisciplinas from "../../components/modals/subjects/index"
+import ModalProfessores from "../../components/modals/teachers/index"
 
-export default function Disciplinas() {
+
+export default function Teachers() {
     const [dados, setDados] = useState([])
     const token = localStorage.getItem('token')
     const [seta, setSeta] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
-    const [disciplinaSelecionada, setDisciplinaSelecionada] = useState(null)
+    const [professorSelecionado, setProfessorSelecionado] = useState(null)
 
     useEffect(() => {
         if (!token) return;
         
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/disciplinas',
+                const response = await axios.get('http://127.0.0.1:8000/api/professores',
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -37,30 +38,30 @@ export default function Disciplinas() {
     const apagar = async (id) => {
         if (window.confirm("Tem certeza? ")) {
             try {
-                await axios.delete(`http://127.0.0.1:8000/api/disciplina/${id}`,
+                await axios.delete(`http://127.0.0.1:8000/api/professor/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     }
                 )
-                setDados(dados.filter((disciplina) => { disciplina.id !== id }))
+                setDados(dados.filter((professor) => { professor.id !== id }))
                 setSeta(!seta)
             } catch (error) {
                 console.error(error)
             }
         }
     }
-    const criar = async(novaDisciplina)=>{
-        console.log("Nova Disciplina: ", novaDisciplina)
+    const criar = async(novoProfessor)=>{
+        console.log("Novo Professor: ", novoProfessor)
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/disciplinas',
-                
+            const response = await axios.post('http://127.0.0.1:8000/api/professores',
                 {
-                    nome_disciplina: novaDisciplina.disciplina,
-                    codigo: novaDisciplina.codigo,
-                    carga_horaria: novaDisciplina.carga_horaria
-                   
+                    ni: novoProfessor.ni,
+                    nome: novoProfessor.nome,
+                    email: novoProfessor.email,
+                    tel: novoProfessor.tel,
+                    ocupacao: novoProfessor.ocupacao
                 },{
                     headers:{
                         Authorization: `Bearer ${token}`
@@ -68,7 +69,7 @@ export default function Disciplinas() {
                 }
             )
             console.log("Dados inseridos com sucesso!", response.data)
-            setDados([...dados, novaDisciplina])
+            setDados([...dados, novoProfessor])
             setModalOpen(false)
             setSeta(!seta)
         } catch (error) {
@@ -77,8 +78,8 @@ export default function Disciplinas() {
 
     }
 
-    const atualizar = (disciplina)=>{
-        setDisciplinaSelecionada(disciplina)
+    const atualizar = (professor)=>{
+        setProfessorSelecionado(professor)
         setModalOpen(true)
     }
 
@@ -91,28 +92,34 @@ export default function Disciplinas() {
                     <table>
                         <thead>
                             <tr className="icons">
-                                <div className="col_1"></div>
-                                <div className="col_2"></div>
-                                <div className="col_3"><th>DISCIPLINA</th></div>
-                                <div className="col_4"><th>CODIGO</th></div>
-                                <div className="col_5"><th>CARGA HORARIA</th></div>
+                                <div className="col1"></div>
+                                <div className="col2"></div>
+                                <div className="col3"><th>ID</th></div>
+                                <div className="col4"><th>NI</th></div>
+                                <div className="col5"><th>NOME</th></div>
+                                <div className="col6"><th>EMAIL</th></div>
+                                <div className="col7"><th>TELEFONE</th></div>
+                                <div className="col8"><th>OC</th></div>
                             </tr>
                         </thead>
                         <tbody> 
-                            {dados.map((disciplina) => (
-                                <tr key={disciplina.id} className="campos">
+                            {dados.map((professor) => (
+                                <tr key={professor.id} className="campos">
                                     <td className="icons">
-                                        <div className="col_1">
-                                            <FaEdit className="edit" onClick={()=> atualizar(disciplina)} />
+                                        <div className="col1">
+                                            <FaEdit className="edit" onClick={()=> atualizar(professor)} />
                                         </div>
-                                        <div className="col_2">
-                                            <FaTrash className="delete" onClick={() => apagar(disciplina.id)} />
+                                        <div className="col2">
+                                            <FaTrash className="delete" onClick={() => apagar(professor.id)} />
                                         </div>
 
                                     </td>
-                                    <div className="col_3"><td>{disciplina.nome_disciplina}</td></div>
-                                    <div className="col_4"><td>{disciplina.codigo}</td></div>
-                                    <div className="col_5"><td>{disciplina.carga_horaria}</td></div>
+                                    <div className="col3"><td>{professor.id}</td></div>
+                                    <div className="col4"><td>{professor.ni}</td></div>
+                                    <div className="col5"><td>{professor.nome}</td></div>
+                                    <div className="col6"><td>{professor.email}</td></div>
+                                    <div className="col7"><td>{professor.tel}</td></div>
+                                    <div className="col8"><td>{professor.ocupacao}</td></div>
                                 </tr>
                             ))}
                         </tbody>
@@ -121,22 +128,22 @@ export default function Disciplinas() {
 
                 <div className="footer_table">
                     <div className="btn1">
-                        <FaPlus className="adicionar" onClick={()=>{setModalOpen(true), setDisciplinaSelecionada(null)}}/>
+                        <FaPlus className="adicionar" onClick={()=>{setModalOpen(true), setProfessorSelecionado(null)}}/>
                     </div>
                     <div className="id">
                         <input placeholder="id" />
                     </div>
                     <div className="nome">
-                        <input placeholder="nome da disciplina" />
+                        <input placeholder="nome do professor" />
                     </div>
                     <div className="btn2">
                         <FaSearch className="procurar" />
                     </div>
                 </div>
-                <ModalDisciplinas
+                <ModalProfessores
                     isOpen={modalOpen}
                     onClose={()=>setModalOpen(false)}
-                    disciplinaSelecionada={disciplinaSelecionada}
+                    professorSelecionado={professorSelecionado}
                     seta = {seta}
                     setSeta = {setSeta}
                 />

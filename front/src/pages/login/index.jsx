@@ -33,7 +33,7 @@ export default function Login(){
     <>
       <div className="container">
         <h1>Login</h1>
-        <input placeholder="   User" className="caixa" type="text" value={ user} onChange={(e) => {setUser(e.target.value)}}></input>
+        <input placeholder="   User" className="caixa" type="text" value={user} onChange={(e) => {setUser(e.target.value)}}></input>
         <input placeholder="   Password" className="caixa" type="password"  onChange={(e) => {setPassword(e.target.value)}}></input>
         <button className="button_forms" onClick={logar}>Send</button>
       </div>
